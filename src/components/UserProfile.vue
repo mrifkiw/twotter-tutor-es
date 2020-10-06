@@ -8,6 +8,28 @@
       <div class="user-profile__follower-count">
         <strong> Followers: </strong> {{ followers }}
       </div>
+      <form
+        class="user-profile__create-twoots"
+        @submit.prevent="createNewTwoot"
+      >
+        <label for="newToots"><Strong>New Twoots</Strong></label>
+        <textarea id="newTwoots" rows="4" v-model="newTwootContent"></textarea>
+        <div class="user-profile__create-twoot-type">
+          <label for="newTwoottype"><strong>Type: </strong></label>
+          <select id="newTwoottype" v-model="selectedTwootType">
+            <option
+              :value="option.value"
+              v-for="(option, index) in twootTypes"
+              :key="index"
+            >
+              {{ option.name }}</option
+            >
+          </select>
+        </div>
+        <button>
+          Twoot!
+        </button>
+      </form>
     </div>
     <div class="user-profile__twoots-wrapper">
       <TwootItem
@@ -31,6 +53,12 @@ export default {
   },
   data() {
     return {
+      newTwootContent: "",
+      selectedTwootType: "instant",
+      twootTypes: [
+        { value: "draft", name: "Draft" },
+        { value: "instant", name: "Instant Twoot" },
+      ],
       isLoading: false,
       followers: 0,
       user: {
@@ -72,6 +100,15 @@ export default {
     toggleFavourite(id) {
       console.log(`Favourited Tweet #${id}`);
     },
+    createNewTwoot() {
+      if (this.newTwootContent && this.selectedTwootType !== "draft") {
+        this.user.twoots.unshift({
+          id: this.user.twoots.length + 1,
+          content: this.newTwootContent,
+        });
+        this.newTwootContent='';
+      }
+    },
   },
   mounted() {
     this.followUser();
@@ -109,5 +146,11 @@ h1 {
 .user-profile__twoots-wrapper {
   display: grid;
   grid-gap: 10px;
+}
+.user-profile__create-twoots {
+  border-top: 1px solid #000;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 </style>
