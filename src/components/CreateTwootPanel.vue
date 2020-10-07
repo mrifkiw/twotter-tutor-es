@@ -1,15 +1,15 @@
 <template>
   <form
-    class="creeate-twoot-panel"
+    class="create-twoot-panel"
     @submit.prevent="createNewTwoot"
     :class="{ '--exceeded': newTwootCharacterCount > 180 }"
   >
     <label for="newTwoot">
-      <Strong>New Twoots</Strong> ({{ newTwootCharacterCount }}/180)</label
+      <strong>New Twoots</strong> ({{ newTwootCharacterCount }}/180)</label
     >
     <textarea id="newTwoot" rows="4" v-model="newTwootContent" />
 
-    <div class="creeate-twoot-panel__submit">
+    <div class="create-twoot-panel__submit">
       <div class="create-twoot-type">
         <label for="newTwootType"><strong>Type: </strong></label>
         <select id="newTwootType" v-model="selectedTwootType">
@@ -66,7 +66,7 @@ export default {
   flex-direction: column;
 
   textarea {
-    border: 1px solid #DFE3E8;
+    border: 1px solid #dfe3e8;
     border-radius: 5px;
   }
 
